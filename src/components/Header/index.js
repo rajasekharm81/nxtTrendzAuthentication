@@ -1,4 +1,5 @@
 import {Component} from 'react'
+import {Link} from 'react-router-dom'
 
 import './index.css'
 
@@ -14,7 +15,9 @@ class Header extends Component {
           />
         </div>
         <div className="HeaderMenuContainer">
-          <p>Home</p>
+          <Link className="link" to="/">
+            <p>Home</p>
+          </Link>
           <p>Product</p>
           <p>Cart</p>
           <button type="button">Logout</button>

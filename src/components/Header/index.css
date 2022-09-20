@@ -19,3 +19,9 @@
   font-weight: bold;
   color: grey;
 }
+
+.link {
+  text-decoration: none;
+  color: grey;
+  cursor: pointer;
+}

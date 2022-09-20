@@ -3,12 +3,41 @@ import {Component} from 'react'
 import './index.css'
 
 class Login extends Component {
-  submit = event => {
+  state = {username: '', password: '', errorMsg: false, errorMsgText: ''}
+
+  getUserName = event => {
+    const userName = event.target.value
+    this.setState({username: userName})
+  }
+
+  getPassword = event => {
+    const passWord = event.target.value
+    this.setState({password: passWord})
+  }
+
+  submit = async event => {
     event.preventDefault()
-    console.log('clicked')
+    const {username, password} = this.state
+    const userDetails = {username, password}
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(userDetails),
+    }
+    const response = await fetch('https://apis.ccbp.in/login', options)
+    if (response.ok) {
+      const {history} = this.props
+      const data = await response.json()
+      this.setState({errorMsg: false})
+      history.replace('/')
+    } else {
+      const data = await response.json()
+      this.setState({errorMsg: true, errorMsgText: data.error_msg})
+      console.log(data.error_msg)
+    }
   }
 
   render() {
+    const {errorMsg, errorMsgText} = this.state
     return (
       <div className="Login-main-container">
         <div className="Login-Image-container">
@@ -30,11 +59,21 @@ class Login extends Component {
             <label className="label" htmlFor="userName">
               User Name
             </label>
-            <input className="input" type="text" placeholder="User Name" />
+            <input
+              onChange={this.getUserName}
+              className="input"
+              type="text"
+              placeholder="User Name"
+            />
             <label className="label" htmlFor="userName">
-              User Name
+              Password
             </label>
-            <input className="input" type="text" placeholder="User Name" />
+            <input
+              onChange={this.getPassword}
+              className="input"
+              type="text"
+              placeholder="Password"
+            />
             <button
               type="button"
               onClick={this.submit}
@@ -42,6 +81,7 @@ class Login extends Component {
             >
               Login
             </button>
+            {errorMsg && <p className="errorMsgText">{`*${errorMsgText}`}</p>}
           </div>
         </form>
       </div>
