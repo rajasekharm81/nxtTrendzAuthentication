@@ -2,96 +2,120 @@ import {Component} from 'react'
 
 import './index.css'
 
-class Login extends Component {
-  state = {username: '', password: '', errorMsg: false, errorMsgText: ''}
-
-  getUserName = event => {
-    const userName = event.target.value
-    this.setState({username: userName})
+class LoginForm extends Component {
+  state = {
+    username: '',
+    password: '',
+    showSubmitError: false,
+    errorMsg: '',
   }
 
-  getPassword = event => {
-    const passWord = event.target.value
-    this.setState({password: passWord})
+  onChangeUsername = event => {
+    this.setState({username: event.target.value})
   }
 
-  submit = async event => {
+  onChangePassword = event => {
+    this.setState({password: event.target.value})
+  }
+
+  onSubmitSuccess = () => {
+    const {history} = this.props
+
+    history.replace('/')
+  }
+
+  onSubmitFailure = errorMsg => {
+    this.setState({showSubmitError: true, errorMsg})
+  }
+
+  submitForm = async event => {
     event.preventDefault()
     const {username, password} = this.state
     const userDetails = {username, password}
+    const url = 'https://apis.ccbp.in/login'
     const options = {
       method: 'POST',
       body: JSON.stringify(userDetails),
     }
-    const response = await fetch('https://apis.ccbp.in/login', options)
-    if (response.ok) {
-      const {history} = this.props
-      const data = await response.json()
-      history.replace('/')
-      this.setState({errorMsg: false})
+    const response = await fetch(url, options)
+    const data = await response.json()
+    if (response.ok === true) {
+      this.onSubmitSuccess()
     } else {
-      const data = await response.json()
-      this.setState({errorMsg: true, errorMsgText: data.error_msg})
-      console.log(data.error_msg)
+      this.onSubmitFailure(data.error_msg)
     }
-    this.setState({username: '', password: ''})
+  }
+
+  renderPasswordField = () => {
+    const {password} = this.state
+
+    return (
+      <>
+        <label className="input-label" htmlFor="password">
+          PASSWORD
+        </label>
+        <input
+          type="password"
+          id="password"
+          className="password-input-field"
+          value={password}
+          onChange={this.onChangePassword}
+          placeholder="Password"
+        />
+      </>
+    )
+  }
+
+  renderUsernameField = () => {
+    const {username} = this.state
+
+    return (
+      <>
+        <label className="input-label" htmlFor="username">
+          USERNAME
+        </label>
+        <input
+          type="text"
+          id="username"
+          className="username-input-field"
+          value={username}
+          onChange={this.onChangeUsername}
+          placeholder="Username"
+        />
+      </>
+    )
   }
 
   render() {
-    const {errorMsg, username, password, errorMsgText} = this.state
+    const {showSubmitError, errorMsg} = this.state
     return (
-      <div className="Login-main-container">
-        <div className="Login-Image-container">
+      <div className="login-form-container">
+        <img
+          src="https://assets.ccbp.in/frontend/react-js/nxt-trendz-logo-img.png"
+          className="login-website-logo-mobile-img"
+          alt="website logo"
+        />
+        <img
+          src="https://assets.ccbp.in/frontend/react-js/nxt-trendz-login-img.png"
+          className="login-img"
+          alt="website login"
+        />
+        <form className="form-container" onSubmit={this.submitForm}>
           <img
-            className="loginPageImage"
-            src="https://assets.ccbp.in/frontend/react-js/nxt-trendz-login-img.png"
-            alt="website login"
+            src="https://assets.ccbp.in/frontend/react-js/nxt-trendz-logo-img.png"
+            className="login-website-logo-desktop-img"
+            alt="website logo"
           />
-        </div>
-        <form className="formContainer">
-          <h1>
-            <img
-              className="LoginCompanyLogo"
-              src="https://assets.ccbp.in/frontend/react-js/nxt-trendz-logo-img.png"
-              alt="website logo"
-            />
-          </h1>
-          <div className="LoginInputContainer">
-            <label className="label" htmlFor="userName">
-              USERNAME
-            </label>
-            <input
-              id="userName"
-              onChange={this.getUserName}
-              className="input"
-              type="text"
-              placeholder="Username"
-              value={username}
-            />
-            <label className="label" htmlFor="password">
-              PASSWORD
-            </label>
-            <input
-              id="password"
-              onChange={this.getPassword}
-              className="input"
-              type="password"
-              placeholder="Password"
-              value={password}
-            />
-            <button
-              type="submit"
-              onClick={this.submit}
-              className="SubmitButton"
-            >
-              Login
-            </button>
-            {errorMsg && <p className="errorMsgText">{`*${errorMsgText}`}</p>}
-          </div>
+          <div className="input-container">{this.renderUsernameField()}</div>
+          <div className="input-container">{this.renderPasswordField()}</div>
+          <button type="submit" className="login-button">
+            Login
+          </button>
+          {showSubmitError && <p className="error-message">*{errorMsg}</p>}
         </form>
       </div>
     )
   }
 }
 
-export default Login
+export default LoginForm
