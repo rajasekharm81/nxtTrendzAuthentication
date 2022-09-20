@@ -61,16 +61,18 @@ class Login extends Component {
               USERNAME
             </label>
             <input
+              id="userName"
               onChange={this.getUserName}
               className="input"
               type="text"
               placeholder="Username"
               value={username}
             />
-            <label className="label" htmlFor="userName">
+            <label className="label" htmlFor="password">
               PASSWORD
             </label>
             <input
+              id="password"
               onChange={this.getPassword}
               className="input"
               type="password"
