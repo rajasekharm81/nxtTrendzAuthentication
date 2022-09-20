@@ -3,6 +3,11 @@ import {Component} from 'react'
 import './index.css'
 
 class Login extends Component {
+  submit = event => {
+    event.preventDefault()
+    console.log('clicked')
+  }
+
   render() {
     return (
       <div className="Login-main-container">
@@ -30,7 +35,13 @@ class Login extends Component {
               User Name
             </label>
             <input className="input" type="text" placeholder="User Name" />
-            <button className="SubmitButton">Login</button>
+            <button
+              type="button"
+              onClick={this.submit}
+              className="SubmitButton"
+            >
+              Login
+            </button>
           </div>
         </form>
       </div>

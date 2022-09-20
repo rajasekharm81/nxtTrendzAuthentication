@@ -1,1 +1,21 @@
-/* Write your CSS code here */
+.Header-main-container {
+  display: flex;
+  justify-content: space-between;
+  width: 95vw;
+  align-items: flex-start;
+  margin-top: 5px;
+}
+
+.HeaderCompanyLogo {
+  height: 8vh;
+}
+.HeaderMenuContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 25vw;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: grey;
+}
