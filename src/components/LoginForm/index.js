@@ -27,17 +27,18 @@ class Login extends Component {
     if (response.ok) {
       const {history} = this.props
       const data = await response.json()
-      this.setState({errorMsg: false})
       history.replace('/')
+      this.setState({errorMsg: false})
     } else {
       const data = await response.json()
       this.setState({errorMsg: true, errorMsgText: data.error_msg})
       console.log(data.error_msg)
     }
+    this.setState({username: '', password: ''})
   }
 
   render() {
-    const {errorMsg, errorMsgText} = this.state
+    const {errorMsg, username, password, errorMsgText} = this.state
     return (
       <div className="Login-main-container">
         <div className="Login-Image-container">
@@ -57,25 +58,27 @@ class Login extends Component {
           </h1>
           <div className="LoginInputContainer">
             <label className="label" htmlFor="userName">
-              User Name
+              USERNAME
             </label>
             <input
               onChange={this.getUserName}
               className="input"
               type="text"
-              placeholder="User Name"
+              placeholder="Username"
+              value={username}
             />
             <label className="label" htmlFor="userName">
-              Password
+              PASSWORD
             </label>
             <input
               onChange={this.getPassword}
               className="input"
-              type="text"
+              type="password"
               placeholder="Password"
+              value={password}
             />
             <button
-              type="button"
+              type="submit"
               onClick={this.submit}
               className="SubmitButton"
             >

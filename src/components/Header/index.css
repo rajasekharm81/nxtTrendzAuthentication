@@ -25,3 +25,6 @@
   color: grey;
   cursor: pointer;
 }
+li {
+  list-style: none;
+}

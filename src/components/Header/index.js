@@ -14,14 +14,14 @@ class Header extends Component {
             alt="website logo"
           />
         </div>
-        <div className="HeaderMenuContainer">
+        <ul className="HeaderMenuContainer">
           <Link className="link" to="/">
-            <p>Home</p>
+            <li>Home</li>
           </Link>
-          <p>Product</p>
-          <p>Cart</p>
+          <li>Products</li>
+          <li>Cart</li>
           <button type="button">Logout</button>
-        </div>
+        </ul>
       </div>
     )
   }

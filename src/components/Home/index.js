@@ -16,8 +16,8 @@ class Home extends Component {
         <Header />
         <div className="HomeMainContnetContainer">
           <div className="HomeContentContiner">
-            <h1>Clothes that you get noticed</h1>
-            <p>Fashion</p>
+            <h1>Clothes That Get YOU Noticed</h1>
+            <p>Fashion is part of the daily air</p>
             <button className="ShopNowButton" type="button">
               Shop Now
             </button>
