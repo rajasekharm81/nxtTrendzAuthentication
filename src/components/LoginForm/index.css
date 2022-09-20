@@ -1,0 +1,61 @@
+.Login-main-container {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  align-items: center;
+  height: 100vh;
+}
+
+.Login-Image-container {
+  height: 40vh;
+  padding-right: 50px;
+}
+
+.loginPageImage {
+  height: 100%;
+  padding: 10px;
+}
+
+.formContainer {
+  display: flex;
+  margin-left: 10px;
+  flex-direction: column;
+  width: 20vw;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 0px 8px 1px grey;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  border-radius: 15px;
+}
+
+.LoginCompanyLogo {
+  width: 200px;
+}
+
+.LoginInputContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.label {
+  padding: 10px;
+  border-radius: 10px;
+  padding-left: 0px;
+}
+
+.input {
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #e4e4e4;
+}
+
+.SubmitButton {
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #0397d1;
+  border: none;
+  color: white;
+}
